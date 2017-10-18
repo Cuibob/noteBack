@@ -2,6 +2,28 @@
 usage="Usage ${0} [ branch ( default is master ) ]"
 # 初始步数
 i=0;
+
+# 同步 git
+branch=$1
+if [ "x$branch" == "x" ]; then
+    branch="master"
+fi
+
+# 远程git取回本地
+git fetch
+# 切换分支
+git checkout $branch
+if [ $? -eq 0 ]
+then
+    echo "$((i++)): 更新 git 版本库 $branch"
+    git merge origin/$branch
+    # 如果项目目录不存在，则创建
+else
+    echo "$((i++)): 分支错误: $branch"
+    exit 1
+fi
+
+
 # 如果.env文件不存在，拷贝.env.example
 if [ ! -f ".env" ]; then
     echo "$((i++)): 拷贝生成.env配置文件"
