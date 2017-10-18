@@ -23,7 +23,6 @@ else
     exit 1
 fi
 
-
 # 如果.env文件不存在，拷贝.env.example
 if [ ! -f ".env" ]; then
     echo "$((i++)): 拷贝生成.env配置文件"
